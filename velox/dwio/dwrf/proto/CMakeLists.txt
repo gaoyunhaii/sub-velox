@@ -46,4 +46,4 @@ add_library(velox_dwio_dwrf_proto ${PROTO_HDRS} ${PROTO_SRCS})
 #
 # #include "velox/dwio/dwrf/proto/dwrf_proto.pb.h"
 target_link_libraries(velox_dwio_dwrf_proto ${Protobuf_LIBRARIES})
-target_include_directories(velox_dwio_dwrf_proto PUBLIC ${PROJECT_BINARY_DIR})
+target_include_directories(velox_dwio_dwrf_proto PUBLIC ${PROJECT_BINARY_DIR} ${CMAKE_BINARY_DIR})
