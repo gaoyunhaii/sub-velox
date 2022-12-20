@@ -107,6 +107,13 @@ void BaseVector::resize(vector_size_t size, bool setNotNull) {
   length_ = size;
 }
 
+void BaseVector::resizeUnsafe(vector_size_t size) {
+  if (nulls_) {
+    nulls_->setSize(byteSize<bool>(size));
+  }
+  length_ = size;
+}
+
 template <TypeKind kind>
 static VectorPtr addDictionary(
     BufferPtr nulls,

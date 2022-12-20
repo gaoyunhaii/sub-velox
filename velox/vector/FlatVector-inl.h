@@ -341,6 +341,18 @@ void FlatVector<T>::resize(vector_size_t size, bool setNotNull) {
 }
 
 template <typename T>
+void FlatVector<T>::resizeUnsafe(vector_size_t size) {
+  auto previousSize = BaseVector::length_;
+  BaseVector::resizeUnsafe(size);
+  if (!values_) {
+    return;
+  }
+  VELOX_DCHECK(values_->isMutable());
+  const uint64_t minBytes = BaseVector::byteSize<T>(size);
+  values_->setSize(minBytes);
+}
+
+template <typename T>
 void FlatVector<T>::ensureWritable(const SelectivityVector& rows) {
   auto newSize = std::max<vector_size_t>(rows.size(), BaseVector::length_);
   if (values_ && !(values_->unique() && values_->isMutable())) {

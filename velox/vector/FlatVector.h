@@ -267,6 +267,8 @@ class FlatVector final : public SimpleVector<T> {
 
   void resize(vector_size_t size, bool setNotNull = true) override;
 
+  void resizeUnsafe(vector_size_t size) override;
+
   VectorPtr slice(vector_size_t offset, vector_size_t length) const override;
 
   std::optional<int32_t> compare(

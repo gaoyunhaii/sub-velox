@@ -371,6 +371,10 @@ class BaseVector {
   // to not null.
   virtual void resize(vector_size_t newSize, bool setNotNull = true);
 
+  // Sets the size to 'size' fast. The caller ensures the size is within 
+  // the limitation of buffers.
+  virtual void resizeUnsafe(vector_size_t newSize);
+
   // Sets the rows of 'this' given by 'rows' to
   // 'source.valueAt(toSourceRow ? toSourceRow[row] : row)', where
   // 'row' iterates over 'rows'.

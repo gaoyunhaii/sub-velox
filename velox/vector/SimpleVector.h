@@ -165,6 +165,10 @@ class SimpleVector : public BaseVector {
     VELOX_CHECK(false, "Can only resize flat vectors.");
   }
 
+  void resizeUnsafe(vector_size_t size) override {
+    VELOX_CHECK(false, "Can only resize unsafely flat vectors.");
+  }
+
   virtual vector_size_t elementSize() {
     return elementSize_;
   }
