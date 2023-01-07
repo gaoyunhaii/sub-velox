@@ -17,6 +17,7 @@
 #pragma once
 
 #include <algorithm>
+#include <cstdint>
 #include <cstring>
 #include <ostream>
 #include <vector>
@@ -46,6 +47,11 @@ class SelectivityVector {
     begin_ = 0;
     end_ = allSelected ? size_ : 0;
     allSelected_ = allSelected;
+  }
+
+  SelectivityVector(const SelectivityVector& root, vector_size_t start, vector_size_t size) : 
+    bits_(root.bits_.begin() + start / 64, root.bits_.end()), size_(size), begin_(0), end_(size), allSelected_(nullptr) {
+      VELOX_CHECK(start % 64 == 0);
   }
 
   // Returns a statically allocated reference to an empty selectivity vector
@@ -312,6 +318,14 @@ class SelectivityVector {
 
   vector_size_t size() const {
     return size_;
+  }
+
+  std::vector<uint64_t>& raw_data() {
+    return bits_;
+  }
+
+  const std::vector<uint64_t>& raw_data() const {
+    return bits_;
   }
 
   bool operator==(const SelectivityVector& other) const {
